@@ -29,11 +29,17 @@ export async function homePage(outlet) {
   outlet.innerHTML = `
 <section class="hero">
   <div class="hero__bg">
+    ${settings.heroVideo ? `
+    <video autoplay muted loop playsinline preload="metadata"
+           poster="${BASE}/assets/img/hero-main.jpg"
+           aria-hidden="true" tabindex="-1">
+      <source src="${esc(settings.heroVideo)}" type="video/mp4">
+    </video>` : `
     <picture>
       <source media="(max-width: 700px)" srcset="${BASE}/assets/img/hero-mobile.webp" type="image/webp">
       <source srcset="${BASE}/assets/img/hero-main.webp" type="image/webp">
       <img src="${BASE}/assets/img/hero-main.jpg" alt="The Zen G lounge at night, lit by lanterns and neon" fetchpriority="high" width="1536" height="1024">
-    </picture>
+    </picture>`}
   </div>
   <div class="hero__scrim"></div>
   <div class="hero__inner">
