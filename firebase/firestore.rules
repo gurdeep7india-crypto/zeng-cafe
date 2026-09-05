@@ -1,0 +1,48 @@
+rules_version = '2';
+
+// Zen G Café — Firestore rules.
+//
+// The shape of the problem: customers must be able to READ the menu without
+// signing in, and must be able to CREATE an order. Nobody except signed-in
+// staff may change the menu, read other people's orders, or touch settings.
+//
+// Deploy with:  firebase deploy --only firestore:rules
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isStaff() {
+      return request.auth != null;
+    }
+
+    // Public catalogue — read by anyone, written by staff only.
+    match /categories/{doc}      { allow read: if true; allow write: if isStaff(); }
+    match /products/{doc}        { allow read: if true; allow write: if isStaff(); }
+    match /customizations/{doc}  { allow read: if true; allow write: if isStaff(); }
+    match /tables/{doc}          { allow read: if true; allow write: if isStaff(); }
+    match /gallery/{doc}         { allow read: if true; allow write: if isStaff(); }
+    match /events/{doc}          { allow read: if true; allow write: if isStaff(); }
+    match /offers/{doc}          { allow read: if true; allow write: if isStaff(); }
+
+    // Settings are read by the site (hours, WhatsApp number, hero image) but
+    // only staff may change them. The order counter lives here too — see the
+    // note in README-firebase.md about moving numbering to a Cloud Function.
+    match /settings/{doc} {
+      allow read: if true;
+      allow write: if isStaff();
+    }
+
+    // Orders: anyone may place one. Only staff may read the list or change a
+    // status, so a customer cannot browse other people's orders.
+    match /orders/{doc} {
+      allow create: if request.resource.data.keys().hasAll(['customerName', 'mobile', 'orderType', 'items', 'total'])
+                    && request.resource.data.total is number
+                    && request.resource.data.total >= 0
+                    && request.resource.data.items.size() > 0
+                    && request.resource.data.items.size() < 100
+                    && request.resource.data.customerName is string
+                    && request.resource.data.customerName.size() < 120;
+      allow read, update, delete: if isStaff();
+    }
+  }
+}

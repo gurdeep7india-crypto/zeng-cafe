@@ -1,0 +1,96 @@
+/* ==========================================================================
+   ZEN G CAFÉ — Design tokens
+   Palette pulled from the brand board: matte black rooms, antique gold
+   lighting, electric magenta/cyan neon, deep green velvet, plum upholstery.
+   ========================================================================== */
+
+:root {
+  /* --- Surfaces (matte black → charcoal → plum) --- */
+  --ink:        #050505;
+  --ink-2:      #0b0b0d;
+  --char:       #141417;
+  --char-2:     #1c1c21;
+  --plum:       #26101f;
+  --forest:     #10201a;
+
+  /* --- Accents --- */
+  --gold:       #f2a007;   /* logo gold */
+  --gold-soft:  #d9a441;   /* antique brass, for hairlines */
+  --gold-deep:  #7a5411;
+  --magenta:    #ec1e79;
+  --cyan:       #22d3ee;
+  --violet:     #8b46ff;
+  --amber:      #ff8a3d;
+  --green:      #2fbf71;
+
+  /* --- Text --- */
+  --bone:       #f4f1ec;
+  --bone-dim:   #b9b3aa;
+  --bone-faint: #7c766e;
+
+  /* --- Semantic --- */
+  --veg:        #34c759;
+  --nonveg:     #e0392b;
+  --danger:     #ff5a52;
+  --ok:         #2fbf71;
+  --warn:       #f2a007;
+
+  /* --- Lines & glass --- */
+  --hair:       rgba(217, 164, 65, 0.22);
+  --hair-soft:  rgba(244, 241, 236, 0.09);
+  --glass:      rgba(20, 20, 23, 0.72);
+  --glass-hi:   rgba(244, 241, 236, 0.045);
+
+  /* --- Glow --- */
+  --glow-gold:    0 0 28px rgba(242, 160, 7, 0.28);
+  --glow-magenta: 0 0 30px rgba(236, 30, 121, 0.35);
+  --glow-cyan:    0 0 30px rgba(34, 211, 238, 0.30);
+  --shadow-lift:  0 24px 60px -24px rgba(0, 0, 0, 0.9);
+  --shadow-deep:  0 40px 90px -30px rgba(0, 0, 0, 0.95);
+
+  /* --- Type --- */
+  --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-body:    "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --f-script:  "Caveat", "Brush Script MT", cursive;
+
+  /* Fluid scale — Elements-of-Typographic-Style style ratio (~1.333) */
+  --t-mega:  clamp(3.1rem, 13.5vw, 11rem);
+  --t-xxl:   clamp(2.3rem, 6.6vw, 5.2rem);
+  --t-xl:    clamp(1.85rem, 4.4vw, 3.4rem);
+  --t-lg:    clamp(1.4rem, 2.6vw, 2.1rem);
+  --t-md:    1.125rem;
+  --t-base:  1rem;
+  --t-sm:    0.9125rem;
+  --t-xs:    0.8rem;
+  --t-micro: 0.72rem;
+
+  /* --- Space --- */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px;
+  --s-9: 96px; --s-10: 140px;
+
+  /* --- Layout --- */
+  --shell: 1320px;
+  --gutter: clamp(18px, 4.5vw, 56px);
+  --header-h: 68px;
+
+  /* --- Signature motif: the Moroccan arch from the café's niches --- */
+  --arch: 999px 999px 4px 4px / 42% 42% 3% 3%;
+  --arch-soft: 220px 220px 6px 6px / 32% 32% 3% 3%;
+
+  --r-sm: 4px;
+  --r-md: 10px;
+  --r-lg: 18px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

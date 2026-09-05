@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+
+<title>Zen G Café Kolkata | Chill. Connect. Create.</title>
+<meta name="description" content="Zen G Café Kolkata — food, friends, conversations, music and unforgettable experiences. Order for dine-in, takeaway or home delivery.">
+<link rel="canonical" href="https://zeng-cafe.vercel.app/">
+
+<meta property="og:type" content="restaurant">
+<meta property="og:title" content="Zen G Café Kolkata | Chill. Connect. Create.">
+<meta property="og:description" content="More than a café. It's a vibe. Hookah, food, music and good company in Kolkata.">
+<meta property="og:image" content="/assets/img/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="/assets/img/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+<link rel="manifest" href="/manifest.webmanifest">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="/assets/img/hero-main.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Instrument+Sans:wght@400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/src/styles/tokens.css">
+<link rel="stylesheet" href="/src/styles/base.css">
+<link rel="stylesheet" href="/src/styles/components.css">
+<link rel="stylesheet" href="/src/styles/pages.css">
+<link rel="stylesheet" href="/src/styles/admin.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Zen G Café",
+  "slogan": "Chill. Connect. Create.",
+  "description": "Café, hookah lounge and music venue in Kolkata.",
+  "image": "/assets/img/og-cover.jpg",
+  "servesCuisine": ["Cafe", "Indian", "Italian", "Asian"],
+  "priceRange": "₹₹",
+  "address": { "@type": "PostalAddress", "addressLocality": "Kolkata", "addressRegion": "West Bengal", "addressCountry": "IN" },
+  "acceptsReservations": "True",
+  "hasMenu": "/menu"
+}
+</script>
+
+<script>
+  // Sub-folder deploys (GitHub Pages project sites) set this. Root deploys leave it empty.
+  window.__ZENG_BASE__ = '';
+
+  // Optional overrides without editing src/data/config.js:
+  // window.__ZENG_CONFIG__ = { backend: 'firebase', firebase: { /* … */ } };
+
+  // GitHub Pages 404 shim hands the real path back here.
+  (function () {
+    var redirect = sessionStorage.getItem('zeng:redirect');
+    if (redirect) { sessionStorage.removeItem('zeng:redirect'); history.replaceState(null, '', redirect); }
+  })();
+</script>
+</head>
+<body>
+<a class="skip-link" href="#app">Skip to content</a>
+<main id="app" aria-live="polite">
+  <div class="state" style="padding-top:30vh">
+    <div class="spinner"></div>
+    <p class="faint" style="margin-top:16px;letter-spacing:.2em;text-transform:uppercase;font-size:.72rem">Zen G</p>
+  </div>
+</main>
+<noscript>
+  <div class="state" style="padding-top:20vh">
+    <h3>This site needs JavaScript</h3>
+    <p>Turn it on to see the menu and order, or call us instead.</p>
+  </div>
+</noscript>
+<script type="module" src="/src/app.js"></script>
+</body>
+</html>

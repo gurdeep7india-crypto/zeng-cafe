@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Zen G Café</title>
+<script>
+  // GitHub Pages serves this for any unknown path. Stash the path and bounce
+  // to the app, which restores it. Vercel uses rewrites instead and never
+  // reaches this file.
+  sessionStorage.setItem('zeng:redirect', location.pathname + location.search + location.hash);
+  location.replace('/');
+</script>
+</head>
+<body></body>
+</html>

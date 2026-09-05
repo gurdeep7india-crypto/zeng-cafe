@@ -1,0 +1,15 @@
+{
+  "name": "zeng-cafe",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zen G Café Kolkata — customer site, QR ordering and admin panel. No build step, no dependencies.",
+  "scripts": {
+    "dev": "npx --yes serve -s . -l 3000",
+    "start": "npx --yes serve -s . -l 3000",
+    "build:preview": "node build-preview.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "type": "module"
+}
