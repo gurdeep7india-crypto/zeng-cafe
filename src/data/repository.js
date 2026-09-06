@@ -47,10 +47,28 @@ export function initData() {
   ready = (async () => {
     adapter = await pickAdapter();
     await adapter.init();
-    await seedIfEmpty();
+    await ensureSeeded();
     return adapter;
   })();
   return ready;
+}
+
+/**
+ * Lay down the shipped menu the first time the app meets an empty store.
+ *
+ * On Firestore this can only succeed for a signed-in staff member — the rules
+ * refuse writes from anyone else, and rightly so. A customer arriving before
+ * the café has seeded gets an empty menu rather than a broken page, and
+ * authService calls ensureSeeded() again the moment staff sign in.
+ */
+export async function ensureSeeded() {
+  try {
+    await seedIfEmpty();
+    return true;
+  } catch (error) {
+    console.warn('[repository] could not seed the store', error?.message || error);
+    return false;
+  }
 }
 
 async function seedIfEmpty() {

@@ -4,28 +4,28 @@
  * 'local'    → LocalStorage. Zero cost, zero setup, single browser only.
  * 'firebase' → Cloud Firestore. Free Spark tier. Shared across every device.
  *
- * Switch by setting `backend: 'firebase'` and filling in firebaseConfig, or by
- * defining window.__ZENG_CONFIG__ before app.js loads (see index.html).
- *
  * Nothing above the data layer knows or cares which one is active.
  */
 
 const defaults = {
-  backend: 'local',
+  // Live. Menu, settings and orders are shared across every device.
+  // Set this back to 'local' to work offline without touching Firebase.
+  backend: 'firebase',
 
-  // Paste the config object from Firebase console → Project settings → Your apps.
-  // Firebase web config values are public identifiers, not secrets; access is
-  // controlled by the Firestore rules in /firebase/firestore.rules.
+  // From Firebase console → Project settings → Your apps.
+  // These are public identifiers, not secrets: every visitor's browser
+  // downloads them. What protects the data is firebase/firestore.rules,
+  // which only lets signed-in staff write.
   firebase: {
-    apiKey: '',
-    authDomain: '',
-    projectId: '',
-    storageBucket: '',
-    messagingSenderId: '',
-    appId: ''
+    apiKey: 'AIzaSyDnaEypcuhs7DB2GWy9X327TzhEre-jf5s',
+    authDomain: 'zeng-cafe.firebaseapp.com',
+    projectId: 'zeng-cafe',
+    storageBucket: 'zeng-cafe.firebasestorage.app',
+    messagingSenderId: '96524073928',
+    appId: '1:96524073928:web:2aefc3c311014a8ee7defd'
   },
 
-  // Namespace for LocalStorage keys.
+  // Namespace for LocalStorage keys (the cart and admin session still live here).
   storagePrefix: 'zeng:v1:',
 
   // Firestore document that holds the single settings record.

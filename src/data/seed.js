@@ -250,7 +250,7 @@ export const SETTINGS = {
   ],
   heroImage: 'assets/img/hero-main.jpg',
   heroImageMobile: 'assets/img/hero-mobile.jpg',
-  heroVideo: '',
+  heroVideo: '/assets/hero.mp4',
   dineIn: true,
   takeaway: true,
   delivery: true,
