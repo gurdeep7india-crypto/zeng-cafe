@@ -116,13 +116,13 @@ export async function adminSettingsPage(outlet) {
     </div>
     <label class="field" style="margin-top:var(--s-4)">
       <span class="label">Hero video URL</span>
-      <input type="url" name="heroVideo" value="${esc(settings.heroVideo || '')}" placeholder="/assets/video/hero.mp4">
+      <input type="text" inputmode="url" name="heroVideo" value="${esc(settings.heroVideo || '')}" placeholder="/assets/hero.mp4">
       <span class="faint" style="font-size:.72rem">
-        A direct link to an .mp4 file. Put the file in <code>assets/video/</code> in your repo and
-        type <code>/assets/video/hero.mp4</code> here. YouTube, Instagram and Google Drive share
-        links will not work — they are pages, not video files. Keep it under about 10 MB, silent,
-        and 10–20 seconds long; it plays muted on a loop behind the headline, with the photo as
-        the fallback on slow connections.
+        A link to an .mp4 file. Put the file in <code>assets/</code> in your repo, then type
+        <code>/assets/hero.mp4</code> here — a full https:// address works too. YouTube, Instagram
+        and Google Drive share links will not work; they are pages, not video files. Keep it under
+        about 10 MB, silent, and 10–20 seconds long. It plays muted on a loop behind the headline,
+        with the photo showing until it loads.
       </span>
     </label>
   </div>
