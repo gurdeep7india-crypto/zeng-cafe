@@ -16,7 +16,7 @@
 
 import { config, usingFirebase } from '../data/config.js';
 import { getSettings, saveSettings } from './settingsService.js';
-import { rawAdapter, backendName } from '../data/repository.js';
+import { rawAdapter, backendName, ensureSeeded } from '../data/repository.js';
 
 const SESSION_KEY = `${config.storagePrefix}admin-session`;
 
@@ -51,6 +51,8 @@ export async function signIn(identity, secret) {
   if (authMode() === 'firebase') {
     const user = await rawAdapter().signIn(identity, secret);
     startSession({ mode: 'firebase', email: user.email });
+    // First staff login on a fresh project is what puts the menu into Firestore.
+    await ensureSeeded();
     return user;
   }
   const settings = await getSettings(true);

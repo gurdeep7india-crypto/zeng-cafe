@@ -1,6 +1,6 @@
 import { repo, COL } from '../data/repository.js';
 import { uid, orderCode, rupeeText, dayKey, fmtTime } from '../core/format.js';
-import { getSettings, saveSettings, whatsappLink } from './settingsService.js';
+import { getSettings, whatsappLink } from './settingsService.js';
 import { lineAmount, totals } from './cartService.js';
 
 export const ORDER_STATUS = ['new', 'confirmed', 'preparing', 'ready', 'completed', 'cancelled'];
@@ -14,12 +14,14 @@ export const ORDER_TYPE_LABEL = {
   'dine-in': 'Dine-in', takeaway: 'Takeaway', delivery: 'Home delivery'
 };
 
-/** Next order code. Sequence lives in settings so it survives across devices. */
-async function nextCode() {
-  const settings = await getSettings(true);
-  const sequence = (Number(settings.orderSequence) || 0) + 1;
-  await saveSettings({ orderSequence: sequence });
-  return orderCode(sequence);
+/**
+ * Next order code.
+ *
+ * Placing an order must never require write access to anything except the
+ * orders collection — a customer is not signed in.
+ */
+function nextCode() {
+  return orderCode();
 }
 
 /**
@@ -31,7 +33,7 @@ export async function createOrder(input, cart) {
   const sums = totals(cart);
   const order = {
     id: uid('ord'),
-    code: await nextCode(),
+    code: nextCode(),
     customerName: input.customerName?.trim() || '',
     mobile: input.mobile?.trim() || '',
     orderType: input.orderType,
