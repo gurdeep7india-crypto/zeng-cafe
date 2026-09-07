@@ -141,3 +141,10 @@ table.tbl img.thumb { width: 42px; height: 42px; object-fit: cover; border-radiu
   .qr-card b, .qr-card small { color: #000; }
   .qr-grid { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* Inline icons: keep them from stretching inside flex rows. */
+.adm__nav svg { width: 17px; height: 17px; flex: 0 0 17px; }
+.adm__brand svg { width: 20px; height: 20px; }
+.tbl .actions .btn svg { width: 15px; height: 15px; }
+.sortrow .handle svg { width: 16px; height: 16px; }
+.btn svg { flex: 0 0 auto; }

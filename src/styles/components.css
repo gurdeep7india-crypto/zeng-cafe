@@ -366,3 +366,9 @@
 .notice strong { color: var(--bone); }
 .notice--warn { border-left-color: var(--amber); background: rgba(255,138,61,0.06); }
 .notice--info { border-left-color: var(--cyan); background: rgba(34,211,238,0.05); }
+
+/* Icon sizing inside buttons and cards. */
+.btn > svg { width: 16px; height: 16px; flex: 0 0 auto; }
+.btn--sm > svg { width: 14px; height: 14px; }
+.cart-pill > svg { width: 17px; height: 17px; }
+.info-card svg { width: 22px; height: 22px; }
