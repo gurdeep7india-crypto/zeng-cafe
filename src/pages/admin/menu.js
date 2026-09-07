@@ -14,6 +14,7 @@ export async function adminMenuPage(outlet) {
     title: 'Dishes',
     lead: 'Everything on the menu. Prices, photos, availability.',
     tools: `<input type="search" data-search placeholder="Filter dishes…" style="min-height:38px;max-width:220px">
+            <button class="btn btn--ghost btn--sm" type="button" data-nophoto>${icons.image} Missing photos</button>
             <button class="btn btn--gold btn--sm" type="button" data-new>${icons.plus} Add a dish</button>`
   });
 
@@ -42,8 +43,11 @@ export async function adminMenuPage(outlet) {
             <thead><tr><th></th><th>Dish</th><th>Price</th><th>Diet</th><th>Flags</th><th>Available</th><th></th></tr></thead>
             <tbody>
               ${group.items.map((product) => `
-              <tr data-row data-name="${esc(product.name.toLowerCase())}">
-                <td><img class="thumb" src="${esc(product.thumbnail || imageFor(product))}" alt="" loading="lazy"></td>
+              <tr data-row data-name="${esc(product.name.toLowerCase())}" data-photo="${product.image ? 'yes' : 'no'}">
+                <td>
+                  <img class="thumb" src="${esc(product.thumbnail || imageFor(product))}" alt="" loading="lazy">
+                  ${product.image ? '' : '<div class="faint" style="font-size:.6rem;text-align:center;margin-top:3px">no photo</div>'}
+                </td>
                 <td>
                   <strong>${esc(product.name)}</strong>
                   <div class="faint" style="font-size:.74rem;max-width:34ch">${esc(product.description || '')}</div>
@@ -61,8 +65,10 @@ export async function adminMenuPage(outlet) {
                     aria-label="${esc(product.name)} available"><i></i></label>
                 </td>
                 <td><div class="actions">
-                  <button class="btn btn--ghost btn--sm" type="button" data-edit="${esc(product.id)}">${icons.edit}</button>
-                  <button class="btn btn--danger btn--sm" type="button" data-del="${esc(product.id)}">${icons.trash}</button>
+                  <button class="btn btn--ghost btn--sm" type="button" data-edit="${esc(product.id)}"
+                          title="Edit ${esc(product.name)}, including its photo">${icons.edit} Edit</button>
+                  <button class="btn btn--danger btn--sm" type="button" data-del="${esc(product.id)}"
+                          title="Delete ${esc(product.name)}">${icons.trash}</button>
                 </div></td>
               </tr>`).join('')}
             </tbody>
@@ -72,6 +78,7 @@ export async function adminMenuPage(outlet) {
       : emptyState('The menu is empty', 'Add your first dish and it will show on the site straight away.');
 
     wire(products);
+    applyFilters();
   }
 
   function wire(products) {
@@ -145,15 +152,28 @@ export async function adminMenuPage(outlet) {
 
   $('[data-new]', outlet).addEventListener('click', () => openForm(null));
 
-  $('[data-search]', outlet).addEventListener('input', (event) => {
-    const term = event.target.value.trim().toLowerCase();
+  let onlyMissingPhotos = false;
+
+  function applyFilters() {
+    const term = $('[data-search]', outlet).value.trim().toLowerCase();
     $$('[data-row]', content).forEach((row) => {
-      row.style.display = !term || row.dataset.name.includes(term) ? '' : 'none';
+      const matchesTerm = !term || row.dataset.name.includes(term);
+      const matchesPhoto = !onlyMissingPhotos || row.dataset.photo === 'no';
+      row.style.display = matchesTerm && matchesPhoto ? '' : 'none';
     });
     $$('[data-group]', content).forEach((group) => {
       const visible = $$('[data-row]', group).some((r) => r.style.display !== 'none');
       group.style.display = visible ? '' : 'none';
     });
+  }
+
+  $('[data-search]', outlet).addEventListener('input', applyFilters);
+
+  $('[data-nophoto]', outlet).addEventListener('click', (event) => {
+    onlyMissingPhotos = !onlyMissingPhotos;
+    event.currentTarget.classList.toggle('btn--gold', onlyMissingPhotos);
+    event.currentTarget.classList.toggle('btn--ghost', !onlyMissingPhotos);
+    applyFilters();
   });
 
   await refresh();
